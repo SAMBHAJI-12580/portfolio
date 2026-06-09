@@ -33,11 +33,13 @@
             scroll-behavior: smooth;
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        html, body {
             background-color: var(--bg-color);
             color: var(--text-primary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden; /* Prevents accidental horizontal scrolling empty space */
+            width: 100%;
         }
 
         a {
@@ -176,36 +178,6 @@
             gap: 15px;
         }
 
-        .btn {
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: var(--transition);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-color);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .btn-secondary {
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-color: var(--text-secondary);
-        }
-
         /* Profile Image Container */
         .hero-img-container {
             display: flex;
@@ -217,9 +189,9 @@
             width: 300px;
             height: 300px;
             object-fit: cover;
-            border-radius: 30px; /* Rounded corners */
+            border-radius: 30px;
             border: 4px solid var(--accent-color);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15); /* Soft color glow */
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
             transition: var(--transition);
         }
 
@@ -468,6 +440,37 @@
             color: var(--text-primary);
         }
 
+        /* Buttons */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+
         /* Footer */
         footer {
             border-top: 1px solid var(--border-color);
@@ -481,17 +484,30 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Design */
+        /* RESPONSIVE DESIGN - FIXED FOR MOBILE PHONES */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
+            /* Reduced padding between sections on mobile to eliminate giant empty blocks */
+            section {
+                padding: 40px 16px; 
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 25px;
+            }
+
+            /* Removed 'min-height: 85vh' to stop forcing huge vertical gaps */
             .hero {
                 grid-template-columns: 1fr;
                 text-align: center;
-                gap: 30px;
-                padding-top: 20px;
+                gap: 20px;
+                padding-top: 30px;
+                padding-bottom: 10px;
+                min-height: auto; 
             }
 
             .hero-text {
@@ -499,21 +515,74 @@
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.3rem;
+            }
+
+            .hero h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 25px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                width: 100%;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
             }
 
             .hero-profile-img {
                 width: 220px;
                 height: 220px;
-                order: -1; /* Place image above text on mobile */
+                border-radius: 50%; /* Circular looks tighter on mobile */
+                order: -1; /* Keeps your face at the top of the mobile screen */
+                margin-bottom: 15px;
             }
 
             .about-grid, .contact-container {
                 grid-template-columns: 1fr;
+                gap: 25px;
             }
 
-            section {
-                padding: 60px 20px;
+            .personal-card {
+                padding: 20px;
+            }
+
+            /* Tighter, more appropriate grid spacing for skills on small screens */
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .skill-card {
+                padding: 15px;
+                text-align: center;
+            }
+
+            .skill-card i {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .skill-card h3 {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .timeline {
+                padding-left: 20px;
+            }
+
+            .timeline-item::before {
+                left: -27px;
             }
         }
     </style>
@@ -548,8 +617,7 @@
                 </div>
             </div>
             <div class="hero-img-container">
-                <!-- Assumes your photo is named profile.png and saved in the same directory -->
-                <img src="Sambhaji Pawar Photo.jpg" alt="Sambhaji Pawar" class="hero-profile-img">
+                <img src="profile.png" alt="Sambhaji Pawar" class="hero-profile-img">
             </div>
         </section>
 
@@ -568,7 +636,7 @@
                         <li><span>Languages:</span> <span>English, Hindi, Kannada</span></li>
                         <li><span>Location:</span> <span>Gokak, Karnataka</span></li>
                         <li><span>Nationality:</span> <span>Indian</span></li>
-                        <li><span>Hobbies:</span> <span>Learning new concepts, Watching movies, Listening to music</span></li>
+                        <li><span>Hobbies:</span> <span>Learning, Movies, Music</span></li>
                     </ul>
                 </div>
             </div>
@@ -593,7 +661,7 @@
                 <!-- Web Technologies -->
                 <div class="skill-card">
                     <i class="fa-solid fa-laptop-code"></i>
-                    <h3>Web Technologies</h3>
+                    <h3>Web Tech</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">HTML5</span>
                         <span class="skill-tag">CSS3</span>
@@ -614,7 +682,7 @@
                     <h3>Tools & OS</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Windows</span>
-                        <span class="skill-tag">Ubuntu (Linux)</span>
+                        <span class="skill-tag">Ubuntu</span>
                         <span class="skill-tag">MS Office</span>
                         <span class="skill-tag">Open Office</span>
                     </div>
